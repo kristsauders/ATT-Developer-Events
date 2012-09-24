@@ -1,1 +1,1 @@
-Visit the AT&T Developer Program site for more details at https://developer.att.com
+For more details, please visit the AT&T Developer Program site at https://developer.att.com
