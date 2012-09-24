@@ -1,0 +1,24 @@
+.svn
+
+# Mac ignores
+.DS_Store
+
+# Rails ignores
+*.log
+tmp/
+
+# Xcode ignores
+build/
+*.pbxuser
+*.mode2v3
+*.swp
+*~.nib
+*.pbxuser
+*.perspective
+*.perspectivev3
+
+# Android ignores
+bin/
+gen/
+local.properties
+build/*
