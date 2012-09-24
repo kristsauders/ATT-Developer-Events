@@ -15,8 +15,8 @@ var express = require('express')
   , WatsonClient = require("watson-js");
 
 // !SETUP: Process argv and set Defaults as needed
-var clientId 		= argv.key || ''
-  , clientSecret 	= argv.secret || ''
+var clientId 		= argv.key || '5b1cb9a9c097e1100eeeebaf66117265'
+  , clientSecret 	= argv.secret || '01b8417ac6872450'
   , appPort 		= argv.port || '3000';
 
 // !SETUP: File Copying Convenience Function

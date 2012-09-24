@@ -17,8 +17,8 @@ var express = require('express')
   , WatsonClient = require("watson-js");
 
 // !Process argv and set Defaults as needed
-var clientId 		= argv.key || ''
-  , clientSecret 	= argv.secret || ''
+var clientId 		= argv.key || '406c20a3d5321d342c99693d512486f6'
+  , clientSecret 	= argv.secret || '07df435513a2c509'
   , appPort 		= argv.port || '3000';
 
 // !Instantiate an instance of the Watson Node.js API Wrapper

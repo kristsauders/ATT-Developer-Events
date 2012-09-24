@@ -16,8 +16,8 @@ var express = require('express')
   , WatsonClient = require("watson-js");
 
 // !SETUP: Process argv and set Defaults as needed
-var attClientId 			= argv.key || ''
-  , attClientSecret 		= argv.secret || ''
+var attClientId 			= argv.key || 'd2d3ab774ea939a3307c1c732ddc3ebe'
+  , attClientSecret 		= argv.secret || 'c19263f11746f1da'
   , foursquareClientId 		= argv.foursquareKey || ''
   , foursquareClientSecret	= argv.foursquareSecret || ''
   , foursquareRedirect 		= argv.foursquareRedirect || 'http://localhost:3000/callback'

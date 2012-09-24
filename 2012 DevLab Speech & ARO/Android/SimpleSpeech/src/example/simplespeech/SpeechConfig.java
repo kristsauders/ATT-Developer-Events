@@ -23,12 +23,12 @@ public class SpeechConfig {
     /** Unobfuscates the OAuth client_id credential for the application. **/
     static String oauthKey() {
 		// TODO: Replace this with code to unobfuscate your OAuth client_id.
-		return myUnobfuscate(MY_OBFUSCATED_CLIENT_ID);
+		return myUnobfuscate("db60be094b37c2f7c25857c3c2b9b9ed");
 	}
 
     /** Unobfuscates the OAuth client_secret credential for the application. **/
     static String oauthSecret() {
 		// TODO: Replace this with code to unobfuscate your OAuth client_secret.
-		return myUnobfuscate(MY_OBFUSCATED_CLIENT_SECRET);
+		return myUnobfuscate("3b6213e56edb61ea");
     }
 }
