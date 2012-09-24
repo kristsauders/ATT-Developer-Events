@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>AT&amp;T Speech API Example: Advanced Walkthrough</title>
+	<meta name="description" content="Application for the AT&T Speech API Deep Dive Presentation at DevLab 2012">
+	<meta name="author" content="Michael Owens">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/styles/bootstrap.css">
+	<link rel="stylesheet" href="/styles/example-advanced.css">
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js'></script>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="span12">
+			<div class="hero-unit">
+				<h1>AT&amp;T Speech API + Foursquare</h1>
+				<p>Use the AT&amp;T Speech API's Business Search context to empower your Foursquare-powered local business search application.</p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span3">
+			{{#if foursquare}}
+			<h2 id="progress-title">Step <span id="progress-step">2</span> of 8</h2>
+			<div id="progress-indicator" class="progress progress-striped">
+				<div class="bar" style="width: 25%;"></div>
+			</div>
+			<ol class="progress-list">
+				<li id="progress-01" class="completed">Log User Into Foursquare</li>
+				<li id="progress-02" class="active">Access User's Microphone</li>
+				<li id="progress-03">Record Audio from Mic</li>
+				<li id="progress-04">Save Audio to File</li>
+				<li id="progress-05">POST File to AT&amp;T Speech API</li>
+				<li id="progress-06">Receive Results from AT&amp;T Speech API</li>
+				<li id="progress-07">POST Transcription to Foursquare API</li>
+				<li id="progress-08">Receive Results from Foursquare API</li>
+			</ol>
+			{{else}}
+			<h2 id="progress-title">Step <span id="progress-step">1</span> of 8</h2>
+			<div id="progress-indicator" class="progress progress-striped">
+				<div class="bar" style="width: 15%;"></div>
+			</div>
+			<ol class="progress-list">
+				<li id="progress-01" class="active">Log User Into Foursquare</li>
+				<li id="progress-02">Access User's Microphone</li>
+				<li id="progress-03">Record Audio from Mic</li>
+				<li id="progress-04">Save Audio to File</li>
+				<li id="progress-05">POST File to AT&amp;T Speech API</li>
+				<li id="progress-06">Receive Results from AT&amp;T Speech API</li>
+				<li id="progress-07">POST Transcription to Foursquare API</li>
+				<li id="progress-08">Receive Results from Foursquare API</li>
+			</ol>
+			{{/if}}
+			<div>
+				<a href="/restart" class="btn"><i class="icon-refresh"></i> Start Over</a>
+			</div>
+		</div>
+		<div class="span9">
+			<h2>Current Status</h2>
+			<div id="status-geolocation" class="alert alert-info">
+				Geolocation Status: <strong>waiting</strong>
+			</div>
+			{{#if foursquare}}
+			<div id="status-foursquare" class="alert alert-success">
+				Foursquare Status: <strong>access token = {{foursquare}}</strong>
+			</div>
+			{{else}}
+			<div id="status-foursquare" class="alert alert-info">
+				Foursquare Status: <strong>not logged in</strong>
+			</div>
+			{{/if}}
+			<div id="status-mic" class="alert alert-info">
+				Audio Status: <strong>waiting</strong>
+			</div>
+			<div id="status-upload" class="alert alert-info">
+				File Status: <strong>waiting</strong>
+			</div>
+			<div id="control_panel">
+				<div class="btn-group">
+				{{#if foursquare}}
+					<button id="button-foursquare" class="btn btn-large btn-success" disabled="disabled"><i class="icon-ok icon-white"></i> <span class="action">Signed In</span></button>
+					<button id="button-connect" class="btn btn-large btn-success"><i class="icon-off icon-white"></i> <span class="action">Connect</span></button>
+				{{else}}
+					<button id="button-foursquare" class="btn btn-large btn-success"><i class="icon-user icon-white"></i> <span class="action">Sign In</span></button>
+					<button id="button-connect" class="btn btn-large" disabled="disabled"><i class="icon-off"></i> <span class="action">Connect</span></button>
+				{{/if}}
+					<button id="button-recorder" class="btn btn-large" disabled="disabled"><i class="icon-music"></i> <span class="action">Record</span></button>
+					<span id="button-save">
+						<button class="btn btn-large" disabled="disabled"><i class="icon-download-alt"></i> <span class="action">Save</span></button>
+						<span id="save_button">
+							<span id="flashcontent"></span>
+						</span>
+					</span>
+					<button id="button-transcribe" class="btn btn-large" disabled="disabled"><i class="icon-share-alt"></i> <span class="action">Transcribe</span></button>
+					<button id="button-search" class="btn btn-large" disabled="disabled"><i class="icon-search"></i> <span class="action">Search</span></button>
+				</div>
+			</div>
+			<div id="transcribe-container">
+				<h2>Speech API Response</h2>
+				<div id="transcribe-response"></div>
+			</div>
+			<div id="search-container">
+				<h2>Foursquare API Response</h2>
+				<div id="search-response"></div>
+			</div>
+		</div>
+	</div>
+	<div id="geoDataResults"></div>
+	<input type="hidden" id="search-term" name="search-term">
+	<form id="uploadForm" name="uploadForm" action="/upload">
+		<input name="authenticity_token" value="xxxxx" type="hidden">
+		<input name="upload_file[parent_id]" value="1" type="hidden">
+		<input name="format" value="json" type="hidden">
+	</form>
+	<script type="text/javascript" src="/scripts/swfobject.js"></script>
+	<script type="text/javascript" src="/scripts/example-advanced.js"></script>
+</div>
+</body>
+</html>

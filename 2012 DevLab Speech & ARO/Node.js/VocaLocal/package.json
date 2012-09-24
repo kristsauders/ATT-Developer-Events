@@ -1,0 +1,20 @@
+{
+  "name": "2012devlab-example-vocalocal",
+  "description": "VocaLocal, an optimized example integration of the AT&T Speech API and Foursquare API",
+  "author": "Michael Owens <mk@mowens.com>",
+  "version": "0.1.0",
+  "dependencies": {
+    "connect": ">= 2.4.2",
+    "express": ">= 3.0.0rc1",
+    "hbs": ">= 1.0.4",
+    "node-foursquare-2": ">= 0.1.5",
+    "optimist": ">= 0.3.4",
+    "passport": ">= 0.1.12",
+    "passport-foursquare": ">= 0.1.2",
+    "watson-js": ">= 0.1.0"
+  },
+  "engines": {
+  	"node": ">= 0.8.6",
+  	"npm": ">= 1.1.4"
+  }
+}

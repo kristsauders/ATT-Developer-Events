@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>AT&T Speech API + Sphero</title>
+	<meta name="description" content="AT&T Speech API + Sphero: Control your Sphero with the AT&T Speech API">
+	<meta name="author" content="Michael Owens">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/styles/bootstrap.css">
+	<link rel="stylesheet" href="/styles/colorpicker.css">
+	<link rel="stylesheet" href="/styles/example-sphero.css">
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js'></script>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="span12">
+			<div class="hero-unit">
+				<h1>AT&amp;T Speech API + Sphero</h1>
+				<p>Make your Sphero move using the AT&amp;T Speech API and the Sphero Node.js SDK.</p>
+				<p><small>Note: Application requires a Sphero connected to your server via Bluetooth.</small></p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span12">
+			<h2>Control Your Sphero via the AT&amp;T Speech API <span id="button-recorder">
+				<button class="btn btn-large btn-success"><i class="icon-music icon-white"></i> <span class="action">Say Command</span></button>
+				<span id="save_button">
+					<span id="flashcontent"></span>
+				</span>
+			</span>
+			</h2>
+			<ul id="voice-commands">
+				<li class="header">
+					<dl>
+						<dt>You say&hellip;</dt>
+						<dd>Sphero executes code&hellip;</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Stop <button id="macro-stop" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.roll(0, 0);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Roll Forward <button id="macro-roll forward" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.roll(0, 1.0);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Roll Backward <button id="macro-roll backward" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.roll(180, 1.0);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Roll Left <button id="macro-roll left" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.roll(270, 1.0);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Roll Right <button id="macro-roll right" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.roll(90, 1.0);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Turn Backward <button id="macro-turn backward" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.setHeading(180);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Turn Left <button id="macro-turn left" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.setHeading(270);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Turn Right <button id="macro-turn right" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.setHeading(90);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Tail Light On <button id="macro-tail light on" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.setBackLED(1.0);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Tail Light Off <button id="macro-tail light off" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.setBackLED(0);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Color {colorName} <small>Color Names Pre-Programmed: <em>red</em>, <em>green</em>, <em>blue</em>, <em>yellow</em>, <em>cyan</em>, <em>orange</em>, <em>purple</em>, <em>violet</em>, <em>white</em>, <em>random</em></small> <button id="macro-color random" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.setRGBLED({colorName.r}, {colorName.g}, {colorName.b});</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Color Off <button id="macro-color off" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><code>bot.setRGBLED(0, 0, 0);</code></dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>Stars And Stripes <small>Rolls Sphero in a circle while changing colors at each turn.</small> <button id="macro-stars and stripes" class="macro-tester btn btn-small"><i class="icon-play"></i></button></dt>
+						<dd><pre>bot.setRGBLED(255, 0, 0, false, function() {
+ bot.roll(0, 1.0, function() {
+  delayer(1000, function() {
+   bot.setRGBLED(255, 255, 255, false);
+   bot.setHeading(90, function() {
+    delayer(1000, function() {
+     bot.setRGBLED(0, 0, 255, false);
+     bot.setHeading(90, function() {
+      delayer(1000, function() {
+       bot.setRGBLED(255, 0, 0, false);
+       bot.setHeading(90, function() {
+        delayer(1000, function() {
+         bot.setRGBLED(255, 255, 255, false);
+         bot.setHeading(90, function() {
+          delayer(1000, function() {
+           bot.setRGBLED(0, 0, 255, false);
+           bot.roll(0, 0, function() {
+            delayer(1000, function() {
+             bot.setRGBLED(0, 0, 0, false);
+            }); // end delayer #6
+           }); // end roll #2
+          }); // end delayer #5
+         }); // end setHeading #4
+        }); // end delayer #4
+       }); // end setHeading #3
+      }); // end delayer #3
+     }); // end setHeading #2
+    }); // end delayer #2
+   }); // end setHeading #1
+  }); // end delayer #1
+ }); // end roll #1
+}); // end setRGBLED #1</pre></dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<h2 class="span12">Control Your Sphero</h2>
+		<div class="span6">
+			<div class="form-horizontal">
+				<h3>Lights</h3>
+				<div class="control-group">
+					<label for="color" class="control-label">Sphero LED Color:</label>
+					<div class="controls">
+						<input type="text" name="color" class="input-medium" value="rgb(255,0,0)">
+						<input type="hidden" name="color-red" value="255">
+						<input type="hidden" name="color-green" value="0">
+						<input type="hidden" name="color-blue" value="0">
+						<span id="color-tile"></span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="color-luminosity" class="control-label">Tail Light Brightness:</label>
+					<div class="controls">
+						<input type="text" name="color-luminosity" class="input-mini" value="0">
+						<span class="help-inline">(minimum 0, maximum 1.0)</span>
+					</div>
+				</div>
+				<div class="form-actions">
+					<button class="btn btn-large btn-sphero" id="set-color">Set Color (RGB)</button>
+					<button class="btn btn-large btn-sphero" id="set-luminosity">Set Back LED</button>
+				</div>
+			</div>
+		</div>
+		<div class="span6">
+			<div class="form-horizontal">
+				<h3>Navigation</h3>
+				<div class="control-group">
+					<label for="nav-heading" class="control-label">Heading:</label>
+					<div class="controls">
+						<input type="text" name="nav-heading" class="input-mini" value="0">
+						<span class="help-inline">(minimum 0, maximum 360)</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="nav-speed" class="control-label">Speed:</label>
+					<div class="controls">
+						<input type="text" name="nav-speed" class="input-mini" value="0">
+						<span class="help-inline">(minimum 0, maximum 1.0)</span>
+					</div>
+				</div>
+				<div class="form-actions">
+					<button class="btn btn-large btn-sphero" id="set-heading">Turn</button>
+					<button class="btn btn-large btn-sphero" id="set-roll-start">Roll</button>
+					<button class="btn btn-large btn-sphero" id="set-roll-stop">Stop</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span12">
+			<h2>Build a Macro</h2>
+			<div class="form-horizontal">
+				<p>The <code>delay</code> value is the time that the macro waits <strong>before</strong> executing the action. A <code>pause</code> action is just the <code>delay</code> value inserted in the macro's action chain. Using the current custom grammar set, we have approximately 2100 potential voice commands at our disposal. See the <a href="#voiceCmds">Voice Commands</a> section below for more details.</p>
+				<h4>Macro Details</h4>
+				<div class="control-group">
+					<label class="control-label">Macro Name</label>
+					<div class="controls">
+						<input type="text" id="macro-name" placeholder="Name Your Macro">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Voice Command</label>
+					<div class="controls">
+						<input type="text" id="macro-command" placeholder="Use a word or phrase not already in use." class="span6">
+					</div>
+				</div>
+				<h4>Macro Actions</h4>
+				<div class="control-group">
+					<select name="new-action" class="control-label">
+						<option value="Roll">Roll</option>
+						<option value="Stop">Stop</option>
+						<option value="Turn">Turn</option>
+						<option value="LED Color">LED Color</option>
+						<option value="Tail Light">Tail Light</option>
+					</select>
+					<div class="controls">
+						<button class="btn btn-sphero" id="macro-new-action">Add New Action</button>
+					</div>
+				</div>
+				<ol id="macro-builder">
+				</ol>
+				<div class="form-actions">
+					<button class="btn btn-large btn-sphero" id="macro-save">Generate Macro</button>
+				</div>
+			</div>
+			<div class="form-horizontal">
+				<h3>Use Your Macros</h3>
+				<p>Want to utilize these macros in the application? Add them into the <code>macro(voiceCommand)</code> function's <code>switch(voiceCommand)</code> expression with the voice command as the <code>case</code> labels. The code for your macros will appear below after clicking "Generate Macro."</p>
+				<div id="macro-list"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span12">
+			<h3 id="voiceCmds">Custom Grammar Set for Voice Commands</h3>
+			<p>For commanding a device like the Sphero, it is best to use a custom grammar set, a feature of the AT&T Speech API that will be available in the near future and is currently in Alpha. We aim to offer highly tuned and specialized speech models crafted to align specifically with developer applications.</p>
+			<p>For extending this Sphero application, we've added a military-style corpus of phrases in addition to the phrases listed at the top of the page that are best recognized by the current configuration of the Sphero app's Speech API. The phrases "Execute Maneuver", "Maneuver", "Evasive Maneuver", and "Execute Evasive Maneuver" can be combined with any letter of the alphabet (in Military Phonetic Alphabet or English Alphabet) followed by a single number 0-9.</p>
+			<p>See the tables below for the phrases available. Some of these are already built into the Macro endpoint of the application, as seen in the Commands list at the top of the page. Use these commands to craft your own macros using the custom grammar set, or modify the code to use the <code>Generic</code> Speech Context and experiment with your own phrases (4-5 word phrases recommended when using <code>Generic</code> Speech Context).</p>
+		</div>
+		<div class="span12">
+			<h4>Maneuvers</h4>
+			<table class="table table-striped">
+				<thead>
+					<th>Word 1</th>
+					<th>Word 2</th>
+					<th>Word 3</th>
+					<th>Word 4</th>
+					<th>Word 5</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td><code>execute</code></td>
+						<td><code>evasive</code></td>
+						<td><code>maneuver</code></td>
+						<td><code>Alfa</code>-<code>Zulu</code> or <code>A</code>-<code>Z</code></code></td>
+						<td><code>0</code>-<code>9</code></td>
+					</tr>
+					<tr>
+						<td><code>evasive</code></td>
+						<td><code>maneuver</code></td>
+						<td><code>Alfa</code>-<code>Zulu</code> or <code>A</code>-<code>Z</code></code></td>
+						<td><code>0</code>-<code>9</code></td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td><code>execute</code></td>
+						<td><code>maneuver</code></td>
+						<td><code>Alfa</code>-<code>Zulu</code> or <code>A</code>-<code>Z</code></code></td>
+						<td><code>0</code>-<code>9</code></td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td><code>maneuver</code></td>
+						<td><code>Alfa</code>-<code>Zulu</code> or <code>A</code>-<code>Z</code></code></td>
+						<td><code>0</code>-<code>9</code></td>
+						<td>-</td>
+						<td>-</td>
+					</tr>
+				</tbody>
+			</table>
+			<h4>Lights &amp; Colors</h4>
+			<table class="table table-striped">
+				<thead>
+					<th>Word 1</th>
+					<th>Word 2</th>
+					<th>Word 3</th>
+					<th>Word 4</th>
+				</thead>
+				<tbody>
+			        <tr>
+			            <td><code>turn</code></td>
+			            <td><code>on</code> or <code>off</code></td>
+			            <td><code>tail</code></td>
+			            <td><code>light</code></td>
+			        </tr>
+			        <tr>
+			            <td><code>turn</code></td>
+			            <td><code>tail</code></td>
+			            <td><code>light</code></td>
+			            <td><code>on</code> or <code>off</code></td>
+			        </tr>
+			        <tr>
+			            <td><code>off</code> or <code>on</code></td>
+			            <td><code>tail</code></td>
+			            <td><code>light</code></td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>tail</code> or <code>turn</code></td>
+			            <td><code>light</code></td>
+			            <td><code>off</code> or <code>on</code></td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>turn</code></td>
+			            <td><code>off</code> or <code>on</code></td>
+			            <td><code>light</code></td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>light</code></td>
+			            <td><code>off</code> or <code>on</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>off</code> or <code>on</code></td>
+			            <td><code>light</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>change</code></td>
+			            <td><code>color</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>color</code></td>
+			            <td><code>off</code>, <code>blue</code>, <code>green</code>, <code>orange</code>, <code>purple</code>, <code>red</code>, or <code>yellow</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>blink</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+				</tbody>
+			</table>
+			<h4>Movement</h4>
+			<table class="table table-striped">
+				<thead>
+					<th>Word 1</th>
+					<th>Word 2</th>
+					<th>Word 3</th>
+				</thead>
+				<tbody>
+			        <tr>
+			            <td><code>stars</code></td>
+			            <td><code>and</code></td>
+			            <td><code>stripes</code></td>
+			        </tr>
+			        <tr>
+			            <td><code>go</code>, <code>move</code>, or <code>roll</code></td>
+			            <td><code>ahead</code>, <code>back</code>, <code>backward</code>, <code>dark</code>, <code>forward</code>, <code>left</code>, and <code>right</code></td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>play</code></td>
+			            <td><code>dead</code></td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>turn</code></td>
+			            <td><code>ahead</code>, <code>around</code>, <code>back</code>, <code>backward</code>, <code>dark</code>, <code>forward</code>, <code>left</code>, and <code>right</code></td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>draw</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>drive</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>faster</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>halt</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>slower</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>stop</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+			        <tr>
+			            <td><code>wait</code></td>
+			            <td>-</td>
+			            <td>-</td>
+			        </tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<form id="uploadForm" name="uploadForm" action="/upload">
+		<input name="authenticity_token" value="xxxxx" type="hidden">
+		<input name="upload_file[parent_id]" value="1" type="hidden">
+		<input name="format" value="json" type="hidden">
+	</form>
+	<script type="text/javascript" src="/scripts/swfobject.js"></script>
+	<script type="text/javascript" src="/scripts/bootstrap-colorpicker.js"></script>
+	<script type="text/javascript" src="/scripts/example-sphero.js"></script>
+</div>
+</body>
+</html>

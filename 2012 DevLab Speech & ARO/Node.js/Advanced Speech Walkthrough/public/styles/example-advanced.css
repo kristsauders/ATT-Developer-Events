@@ -1,0 +1,71 @@
+body {
+	padding-top:40px;
+}
+
+#button-save {
+	width:84px;
+	height:38px;
+	position:relative;
+	margin-left:-1px;
+	z-index:2;
+}
+
+#button-save .btn {
+	border-radius:0;
+}
+
+#save_button {
+	position:absolute;
+	left:0;
+}
+
+#button-transcribe {
+	margin-left:-1px;
+}
+
+.string {
+	color:green;
+}
+
+.number {
+	color:#ff8c00;
+}
+
+.boolean {
+	color:blue;
+}
+
+.null {
+	color:#f0f;
+}
+
+.key {
+	color:red;
+}
+
+.progress,#status-mic {
+	margin-top:9px;
+}
+
+.progress-list li {
+	padding:5px;
+}
+
+.progress-list li.completed {
+	color:#999;
+	text-decoration:line-through;
+}
+
+.progress-list li.active {
+	font-weight:700;
+}
+
+#transcribe-container {
+	display:none;
+	margin-top:25px;
+}
+
+#search-container {
+	display:none;
+	margin-top:25px;
+}

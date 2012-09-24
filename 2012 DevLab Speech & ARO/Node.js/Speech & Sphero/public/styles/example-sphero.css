@@ -1,0 +1,134 @@
+body {
+	padding-top:40px;
+}
+
+#button-recorder, #button-save {
+	width:160px;
+	height:40px;
+	position:relative;
+	z-index:2;
+}
+
+#save_button {
+	position:absolute;
+	left:0;
+}
+
+input[name='color'] {
+	color:red;
+	font-weight:700;
+}
+
+.btn-sphero {
+	color:#fff;
+	background:#49AFCD;
+	background-image:-ms-linear-gradient(top,#5BC0DE,#2F96B4);
+	background-image:-webkit-gradient(linear,0 0,0 100%,from(#5BC0DE),to(#2F96B4));
+	background-image:-webkit-linear-gradient(top,#5BC0DE,#2F96B4);
+	background-image:-o-linear-gradient(top,#5BC0DE,#2F96B4);
+	background-image:-moz-linear-gradient(top,#5BC0DE,#2F96B4);
+	background-image:linear-gradient(top,#5BC0DE,#2F96B4);
+	background-repeat:repeat-x;
+	border-color:#2F96B4 #2F96B4 #1F6377;
+	text-shadow:0 -1px 0 rgba(0,0,0,0.25);
+}
+
+.btn-sphero:hover {
+	color:#fff;
+	background-color:#2F96B4;
+	text-shadow:0 -1px 0 rgba(0,0,0,0.25);
+}
+
+#color-tile {
+	display:inline-block;
+	padding:10px;
+	margin-bottom:0;
+	font-size:13px;
+	line-height:18px;
+	text-align:center;
+	text-shadow:0 1px 1px rgba(255,255,255,0.75);
+	vertical-align:middle;
+	width:10px;
+	height:10px;
+	border-radius:5px;
+	background:red;
+	margin-left:4px;
+	border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+	border-style:solid;
+	border-width:1px;
+}
+
+#voice-commands {
+	list-style:none;
+}
+
+#voice-commands li {
+	clear:both;
+	min-height:32px;
+	margin:0;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	padding:6px;
+}
+
+#voice-commands li:nth-child(2n) {
+	background:#f5f5f5;
+}
+
+#voice-commands li dl {
+	margin:0;
+	padding:0;
+}
+
+#voice-commands li dt,#voice-commands li dd {
+	float:left;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	width:50%;
+	margin:0;
+	padding:0;
+}
+
+#voice-commands li.header dt {
+	font-size:125%;
+	line-height:2.5;
+	padding-left:0;
+}
+
+#voice-commands li.header dd {
+	font-size:125%;
+	font-weight:700;
+	line-height:2.5;
+}
+
+#voice-commands li dt {
+	width:50%;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	padding-left:50px;
+	position:relative;
+}
+
+#voice-commands li dt .macro-tester {
+	position:absolute;
+	left:-3px;
+	top:-3px;
+}
+
+#voice-commands li dt small {
+	display:block;
+	font-weight:400;
+	font-size:75%;
+}
+
+#macro-builder {
+	margin:0;
+	padding:0;
+}
+
+#macro-builder li {
+	list-style:none;
+}
