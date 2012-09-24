@@ -12,9 +12,9 @@
 // Replace the URLs below with the appropriate ones for your Speech API account.
 #define SPEECH_URL @"https://api.att.com/rest/1/SpeechToText"
 #define OAUTH_URL @"https://api.att.com/oauth/token"
-#error Add code to unobfuscate your Speech API credentials in the macros below, then delete this line.
-#define API_KEY MY_UNOBFUSCATOR(my_obfuscated_api_key)
-#define API_SECRET MY_UNOBFUSCATOR(my_obfuscated_api_key)
+// Add code to unobfuscate your Speech API credentials in the macros below, then delete this line.
+#define API_KEY @"041344034c64aa04ee62786423b913c4"
+#define API_SECRET @"26d3686731c848bd"
 
 @interface SimpleSpeechViewController ()
 - (void) speechAuthFailed: (NSError*) error;

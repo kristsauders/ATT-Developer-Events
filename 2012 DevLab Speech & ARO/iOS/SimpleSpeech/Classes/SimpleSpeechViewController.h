@@ -6,9 +6,6 @@
 // Copyright 2012 AT&T Intellectual Property. All rights reserved.
 // For more information contact developer.support@att.com http://developer.att.com
 
-#define API_KEY @"041344034c64aa04ee62786423b913c4"
-#define API_SECRET @"26d3686731c848bd"
-
 #import <UIKit/UIViewController.h>
 #import "ATTSpeechKit.h"
 
